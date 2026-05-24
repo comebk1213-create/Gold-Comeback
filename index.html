@@ -320,7 +320,7 @@ async function doOrder(total){
   var payload={
     subject:"🍜 ["+STORE+"] ออเดอร์ใหม่ #"+oid+" — ₭"+total.toLocaleString("la-LA"),
     name:name,phone:phone,table:table||"ไม่ระบุ",
-    items:rows+(note?"\n\n📝 หมายเหตุ: "+note:""),
+    items:rows+(note?"\n\n📝 ໝາຍເຫດ: "+note:""),
     total:total.toLocaleString("la-LA"),payment:plabel,orderId:oid
   };
   try{
