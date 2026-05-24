@@ -232,7 +232,7 @@ function updateBar(){
   var total=items.reduce(function(s,i){return s+i.price*i.qty;},0);
   var count=items.reduce(function(s,i){return s+i.qty;},0);
   document.getElementById("cartBtn").classList.toggle("ch",count===0);
-  document.getElementById("cartBadge").textContent=count+" รายการ · ฿"+total.toLocaleString("th-TH");
+  document.getElementById("cartBadge").textContent=count+" ລາຍການ · ₭"+total.toLocaleString("th-TH");
 }
 function openCart(){payMethod="";renderSheet();document.getElementById("overlay").classList.add("show");}
 function closeCart(){document.getElementById("overlay").classList.remove("show");}
