@@ -132,10 +132,10 @@ var QR_PP_SRC   = "";   // ← URL รูป QR พร้อมเพย์  เ
 var QR_BK_SRC   = "";   // ← URL รูป QR ธนาคาร    เช่น "https://myserver.com/qr-bank.png"
 
 // ── ข้อมูลบัญชี ── แสดงใต้กล่อง QR
-var PP_NUMBER   = "08X-XXX-XXXX";
-var BK_NAME     = "ธนาคารกสิกรไทย";
-var BK_ACCNAME  = "ชื่อเจ้าของบัญชี";
-var BK_ACCNO    = "xxx-x-xxxxx-x";
+var PP_NUMBER   = "2001217779123";
+var BK_NAME     = "ທະນາຄານພັດທະນາລາວ";
+var BK_ACCNAME  = "KHAMPHOUMEE PHATHEBVONGSA MR";
+var BK_ACCNO    = "0301-xxxx-xxxx-5272";
 
 // ══════════════════════════════
 // MENU
@@ -262,8 +262,8 @@ function renderSheet(){
   var items=Object.values(cart);
   var sub=items.reduce(function(s,i){return s+i.price*i.qty;},0);
   var fmt=sub.toLocaleString("la-LA");
-  var ppBox=qrBox("📲 QR พร้อมเพย์",   QR_PP_SRC, "พร้อมเพย์: "+PP_NUMBER);
-  var bkBox=qrBox("🏦 QR บัญชีธนาคาร", QR_BK_SRC, BK_NAME+"<br/>"+BK_ACCNAME+"<br/>เลขที่: "+BK_ACCNO);
+  var ppBox=qrBox("📲 QR ວັນເພຍ໌",   QR_PP_SRC, "ວັນເພຍ໌: "+PP_NUMBER);
+  var bkBox=qrBox("🏦 QR ບັນຊີທະນາຄານ", QR_BK_SRC, BK_NAME+"<br/>"+BK_ACCNAME+"<br/>เลขที่: "+BK_ACCNO);
 
   document.getElementById("sc").innerHTML=
     '<div style="font-weight:800;font-size:18px;margin-bottom:4px">🛒 ກະຕ່າຂອງເຈົ້າ</div>'
