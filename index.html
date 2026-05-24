@@ -311,6 +311,8 @@ async function doOrder(total){
   var note=document.getElementById("n4").value.trim();
   if(!name||!phone){alert("ກະລຸນາກອກຊື່ແລະເບີໂທລະສັບ");return;}
   if(!payMethod){alert("ກະລຸນາເລືອກວິທີຊຳລະເງິນ");return;}
+  if(!table){alert("ກະລຸນາກອກໂຕະ / ຫ້ອງ / ທີ່ຢູ່");return;}
+  if(!payMethod){alert("ກະລຸນາເລືອກວິທີຊຳລະເງິນ");return;}
   var btn=document.getElementById("cfbtn");
   btn.disabled=true; btn.textContent="⏳ ກຳລັງສົ່ງອໍເດີ່...";
   var items=Object.values(cart);
