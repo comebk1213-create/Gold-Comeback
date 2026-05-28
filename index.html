@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ຮ້ານGold Comeback</title>
+<title>ສັ່ງສິນຄ້າ — ຮ້ານຂອງຂ້ອຍ</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100..900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -93,24 +93,24 @@ header{background:linear-gradient(135deg,#ff6b2b,#ff8c42);position:sticky;top:0;
 </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="hi">
     <div class="logo" style="background:transparent;margin-right:8px"><img src="Gold_Shop-removebg-preview.png" style="width:56px;height:56px;border-radius:0;object-fit:contain"/></div>
-    <div><div class="sn">Gold Comeback</div><div class="ss">ອາຫານສຳເລັດຮູບ-ເຄື່ອງດື່ມ &amp; ຂອງໃຊ້ທົ່ວໄປມີພ້ອມຈຳໜ່າຍ 🔥</div></div>
+    <div><div class="sn">Gold Comeback</div><div class="ss">ອາຫານສຳເລັດຮູບ &amp; ເຄື່ອງດື່ມມີຄົບ 🔥</div></div>
   </div>
 </header>
-
+ 
 <div class="bnr">
   <div class="bb">
     <div class="be">📦</div>
-    <div class="bt">ເປີດຮັບອໍເດີ່ທຸກມື້ 24h<br/>ສັ່ງຂັ້ນຕ່ຳ ₭1000 | ຈັດສົ່ງຟຣີຢູ່ພາຍໃນພື້ນທີ່ຫໍພັກນັກສຶກສາ ມຂ </div>
+    <div class="bt">ເປີດຮັບອໍເດີ່ທຸກມື້ 8:00–00:00<br/>ສັ່ງຂັ້ນຕ່ຳ ₭1000 | ຈັດສົ່ງຟຣີຢູ່ໃນພື້ນທີ່ຫໍພັກນັກສຶກສາ ມຂ </div>
   </div>
 </div>
-
+ 
 <div class="cats"><div class="cs" id="catTabs"></div></div>
 <div id="productArea"></div>
-
+ 
 <div class="cbar">
   <div class="cbtnrow">
     <button class="cbtn ch" id="cartBtn" onclick="openCart()">
@@ -120,28 +120,28 @@ header{background:linear-gradient(135deg,#ff6b2b,#ff8c42);position:sticky;top:0;
     <button class="cbuy ch" id="buyBtn" onclick="openCart()">ຊື້ສິນຄ້າ</button>
   </div>
 </div>
-
+ 
 <div class="ov" id="overlay" onclick="bgClose(event)">
   <div class="sh"><div class="hdl"></div><button onclick="closeCart()" style="position:absolute;top:60px;right:16px;width:44px;height:44px;border-radius:50%;background:#f3f4f6;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6b7280">✕</button><div id="sc"></div></div>
 </div>
-
+ 
 <script>
 // ══════════════════════════════
 // CONFIG — แก้ตรงนี้
 // ══════════════════════════════
-var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0RNbNzx5W5NRPVOdKTCaeIti7MaLniwKgq46pJ98AxHe0E1I0BGaDrHazA_4vihXp/exec";
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgKDzd8hD5tECuxSWHpN8YZ8IuNi9XTI0P7tDqoomnA56pNaNmV8rkuP2122QD0RXq/exec";
 var STORE       = "Gold Comeback";
-
+ 
 // ── รูป QR ── ใส่ URL รูปที่อัปโหลดบน backend แล้ว
 var QR_PP_SRC   = "ONE-PLAY.jpeg";   // ← URL รูป QR พร้อมเพย์  เช่น "https://myserver.com/qr-promptpay.png"
 var QR_BK_SRC   = "LDB-TRUST.jpeg";   // ← URL รูป QR ธนาคาร    เช่น "https://myserver.com/qr-bank.png"
-
+ 
 // ── ข้อมูลบัญชี ── แสดงใต้กล่อง QR
 var PP_NUMBER   = "2001217779123";
 var BK_NAME     = "ທະນາຄານພັດທະນາລາວ";
 var BK_ACCNAME  = "KHAMPHOUMEE PHATHEBVONGSA MR";
 var BK_ACCNO    = "0301-xxxx-xxxx-5272";
-
+ 
 // ══════════════════════════════
 // MENU
 // ══════════════════════════════
@@ -180,10 +180,10 @@ var MENU = [
     {id:22, name:"เรดบูล กระป๋อง",      desc:"เครื่องดื่มชูกำลัง คลายง่วง",         price:15, e:"⚡", tag:""},
   ]},
 ];
-
+ 
 // STATE
 var cart = {}, payMethod = "";
-
+ 
 // CATS
 function renderCats() {
   var cats = ["ທັ້ງໝົດ"].concat(MENU.map(function(s){return s.cat;}));
@@ -198,7 +198,7 @@ function filterCat(btn,cat){
     s.style.display=(cat==="ທັ້ງໝົດ"||s.dataset.cat===cat)?"block":"none";
   });
 }
-
+ 
 // PRODUCTS
 function renderProducts(){
   document.getElementById("productArea").innerHTML = MENU.map(function(s){
@@ -221,7 +221,7 @@ function renderProducts(){
       +'</div></div>';
   }).join("");
 }
-
+ 
 // CART
 function chg(id,d,e){
   e.stopPropagation();
@@ -251,7 +251,7 @@ function selPay(m){
   document.getElementById("dc").classList.toggle("show",m==="cash");
   document.getElementById("dq").classList.toggle("show",m==="qr");
 }
-
+ 
 // BUILD ONE QR BOX
 function qrBox(title, src, accHtml){
   var imgPart = src
@@ -263,7 +263,7 @@ function qrBox(title, src, accHtml){
     +'<div class="qacc">'+accHtml+'</div>'
     +'</div>';
 }
-
+ 
 // RENDER SHEET
 function renderSheet(){
   var items=Object.values(cart);
@@ -271,9 +271,9 @@ function renderSheet(){
   var fmt=sub.toLocaleString("la-LA");
   var ppBox=qrBox("📲 QR ວັນເພຍ໌",   QR_PP_SRC, "ວັນເພຍ໌: "+PP_NUMBER);
   var bkBox=qrBox("🏦 QR ບັນຊີທະນາຄານ", QR_BK_SRC, BK_NAME+"<br/>"+BK_ACCNAME+"<br/>ເລກທີ່: "+BK_ACCNO);
-
+ 
   document.getElementById("sc").innerHTML=
-    '<div style="font-weight:800;font-size:18px;margin-bottom:4px">🛒 ກະຕ່າສິນຄ້າຂອງເຈົ້າ</div>'
+    '<div style="font-weight:800;font-size:18px;margin-bottom:4px">🛒 ກະຕ່າຂອງເຈົ້າ</div>'
     +'<div style="font-size:13px;color:var(--sub);margin-bottom:14px">ກວດສອບລາຍການແລ້ວເລືອກວິທີຊຳລະເງິນ</div>'
     +items.map(function(i){
       return '<div class="oi"><div class="oil">'
@@ -284,9 +284,9 @@ function renderSheet(){
     +'<div class="dv"></div>'
     +'<div class="tr big"><span>ຍອດລວມ</span><span>₭'+fmt+'</span></div>'
     +'<label class="fl">👤 ຊື່ຜູ້ສັ່ງ </label><input class="fi" id="n1" placeholder="ເຊັ່ນ ທ້າວ ສົມຊາຍ ຫຼໍ່ເທ່"/>'
-    +'<label class="fl">📱 ເບີໂທລະສັບ </label><input class="fi" id="n2" type="tel" placeholder="2098396475"/>'
-    +'<label class="fl">🏠 ໂຕະ / ຫ້ອງ / ທີ່ຢູ່ </label><input class="fi" id="n3" placeholder="ເຊັ່ນ ໂຕະ 3, ຫ້ອງ 122, ມາສົ່ງ ຢູ່ໃນຄົວເດີ້"/>'
-    +'<label class="fl">📝 ໝາຍເຫດ </label><input class="fi" id="n4" placeholder="ເຊັ່ນ ບໍ່ຕ້ອງໃສ່ຖົງ, ບ໊ຣາໆໆໆໆໆ"/>'
+    +'<label class="fl">📱 ເບີໂທລະສັບ </label><input class="fi" id="n2" type="tel" placeholder="20-XXXX-XXXX"/>'
+    +'<label class="fl">🏠 ໂຕະ / ຫ້ອງ / ທີ່ຢູ່ </label><input class="fi" id="n3" placeholder="ເຊັ່ນ ໂຕະ 3, ຫ້ອງ 122, ມາສົ່ງ ຢູ່ໃນຄົວ"/>'
+    +'<label class="fl">📝 ໝາຍເຫດ </label><input class="fi" id="n4" placeholder="ເຊັ່ນ ພໍ່ຄ້າຫຼໍ່, ບໍ່ຕ້ອງໃສ່ຖົງ"/>'
     +'<span class="pl">💳 ເລືອກວິທີຊຳລະເງິນ </span>'
     +'<div class="po">'
     +'<div class="popt" id="po-cash" onclick="selPay(\'cash\')">'
@@ -307,9 +307,9 @@ function renderSheet(){
     +'<div class="pamount" style="color:var(--or);text-align:center">₭'+fmt+'</div>'
     +'<div class="pnote" style="color:#374151;text-align:center">ໂອນແລ້ວແຄັບຈໍສົ່ງໃຫ້ຮ້ານຄ້າດ້ວຍເນີ 🙏</div>'
     +'<div style="margin-top:14px;background:#fff;border:2px dashed #c4b5fd;border-radius:14px;padding:14px;text-align:center">'
-    +'<div style="font-size:13px;font-weight:700;color:#5b21b6;margin-bottom:8px">📎 ແນບສະລິບການໂອນເງິນ</div>'
+    +'<div style="font-size:13px;font-weight:700;color:#5b21b6;margin-bottom:8px">📎 ແນບສລິບການໂອນເງິນ</div>'
     +'<label id="slipLabel" style="display:inline-block;cursor:pointer;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border-radius:10px;padding:9px 20px;font-size:13px;font-weight:700">'
-    +'📷 ເລືອກຮູບສະລິບການໂອເງິນ'
+    +'📷 ເລືອກຮູບສລິບ'
     +'<input type="file" id="slipFile" accept="image/*" style="display:none" onchange="previewSlip(this)"/>'
     +'</label>'
     +'<div id="slipPreview" style="margin-top:10px;display:none">'
@@ -321,7 +321,7 @@ function renderSheet(){
     +'</div>'
     +'<button class="cfbtn" id="cfbtn" onclick="doOrder('+sub+')">✅ ຢືນຢັນສັ່ງຊື້</button>';
 }
-
+ 
 // SLIP PREVIEW
 var slipBase64 = "";
 var slipMimeType = "";
@@ -338,7 +338,7 @@ function previewSlip(input){
   };
   reader.readAsDataURL(file);
 }
-
+ 
 // SUBMIT
 async function doOrder(total){
   var name=document.getElementById("n1").value.trim();
@@ -349,24 +349,50 @@ async function doOrder(total){
   if(!phone){alert("ກະລຸນາກອກ ເບີໂທ");return;}
   if(!table){alert("ກະລຸນາກອກ ໂຕະ / ຫ້ອງ / ທີ່ຢູ່");return;}
   if(!payMethod){alert("ກະລຸນາເລືອກວິທີຊຳລະເງິນ");return;}
-  if(payMethod==="qr"&&!slipBase64){alert("ກະລຸນາແນບສະລິບການໂອນເງິນ");return;}
+  if(payMethod==="qr"&&!slipBase64){alert("ກະລຸນາແນບສລິບການໂອນເງິນ");return;}
   var btn=document.getElementById("cfbtn");
   btn.disabled=true; btn.textContent="⏳ ກຳລັງສົ່ງອໍເດີ່...";
   var items=Object.values(cart);
   var rows=items.map(function(i){return "• "+i.e+" "+i.name+" × "+i.qty+" = ₭"+(i.price*i.qty);}).join("\n");
   var oid="ORD-"+Date.now().toString().slice(-5);
   var plabel=payMethod==="cash"?"💵 ເງິນສົດ":"📲 ສະແກນ QR";
+  // ── chunk slip: ถ้ารูปใหญ่เกิน 500KB ให้ส่งแยก request ──
+  var SLIP_INLINE_LIMIT = 500 * 1024 * 4/3; // ~500KB base64 chars
+  var slipForPayload = "";
+  var slipMimeForPayload = "";
+  var slipLarge = slipBase64 && slipBase64.length > SLIP_INLINE_LIMIT;
+ 
+  if(!slipLarge){
+    slipForPayload = slipBase64||"";
+    slipMimeForPayload = slipMimeType||"";
+  }
+ 
   var payload={
     subject:"🍜 ["+STORE+"] ອໍເດີ່ໃໝ່! #"+oid+" — ₭"+total.toLocaleString("la-LA"),
     name:name,phone:phone,table:table||"-",
     items:rows,note:note||"ບໍ່ລະບຸ",
     total:total.toLocaleString("la-LA"),payment:plabel,orderId:oid,
-    slipBase64:slipBase64||"",
-    slipMimeType:slipMimeType||""
+    slipBase64:slipForPayload,
+    slipMimeType:slipMimeForPayload
   };
   try{
-          await fetch(APPS_SCRIPT_URL,{method:"POST",body:JSON.stringify(payload),headers:{"Content-Type":"text/plain"},mode:"no-cors"});
+    await fetch(APPS_SCRIPT_URL,{method:"POST",body:JSON.stringify(payload),headers:{"Content-Type":"text/plain"},mode:"no-cors"});
   }catch(e){}
+ 
+  // ── ถ้ารูปใหญ่ให้ส่ง slip ตามหลัง ──
+  if(slipLarge){
+    try{
+      var slipPayload={
+        type:"slip_only",
+        orderId:oid,
+        name:name,
+        slipBase64:slipBase64,
+        slipMimeType:slipMimeType
+      };
+      await fetch(APPS_SCRIPT_URL,{method:"POST",body:JSON.stringify(slipPayload),headers:{"Content-Type":"text/plain"},mode:"no-cors"});
+    }catch(e){}
+  }
+ 
   slipBase64=""; slipMimeType="";
   // reset
   cart={};
@@ -385,10 +411,9 @@ async function doOrder(total){
     +'<button class="cfbtn" onclick="closeCart()" style="background:linear-gradient(135deg,#16a34a,#22c55e);margin-top:20px">✓ ກັບມາຫນ້າເມນູ</button>'
     +'</div>';
 }
-
+ 
 renderCats();
 renderProducts();
 </script>
 </body>
-</html>
 </html>
