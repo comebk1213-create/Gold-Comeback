@@ -41,7 +41,9 @@ header{background:linear-gradient(135deg,#ff6b2b,#ff8c42);position:sticky;top:0;
 .qb.p{background:var(--or);color:#fff}
 .qn{font-weight:700;font-size:15px;min-width:18px;text-align:center}
 .cbar{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:12px 16px;pointer-events:none}
-.cbtn{max-width:480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#ff6b2b,#ff5500);color:#fff;border:none;border-radius:16px;padding:16px 20px;font-family:'Noto Sans Lao',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px #ff6b2b60;width:100%;pointer-events:all}
+.cbtnrow{max-width:480px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.cbuy{background:#ff5500;color:#fff;border:none;border-radius:16px;padding:16px 18px;font-family:'Noto Sans Lao',sans-serif;font-size:14px;font-weight:800;cursor:pointer;pointer-events:all;white-space:nowrap;box-shadow:0 8px 20px #ff6b2b40}
+.cbtn{flex:1;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#ff6b2b,#ff5500);color:#fff;border:none;border-radius:16px;padding:16px 20px;font-family:'Noto Sans Lao',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px #ff6b2b60;width:100%;pointer-events:all}
 .cbadge{background:#fff;color:var(--or);border-radius:20px;padding:3px 10px;font-size:13px;font-weight:800}
 .ch{opacity:0;pointer-events:none}
 .ov{position:fixed;inset:0;background:#00000060;z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
@@ -91,52 +93,55 @@ header{background:linear-gradient(135deg,#ff6b2b,#ff8c42);position:sticky;top:0;
 </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="hi">
     <div class="logo" style="background:transparent;margin-right:8px"><img src="Gold_Shop-removebg-preview.png" style="width:56px;height:56px;border-radius:0;object-fit:contain"/></div>
     <div><div class="sn">Gold Comeback</div><div class="ss">ອາຫານສຳເລັດຮູບ &amp; ເຄື່ອງດື່ມມີຄົບ 🔥</div></div>
   </div>
 </header>
-
+ 
 <div class="bnr">
   <div class="bb">
     <div class="be">📦</div>
     <div class="bt">ເປີດຮັບອໍເດີ່ທຸກມື້ 8:00–00:00<br/>ສັ່ງຂັ້ນຕ່ຳ ₭1000 | ຈັດສົ່ງຟຣີຢູ່ໃນພື້ນທີ່ຫໍພັກນັກສຶກສາ ມຂ </div>
   </div>
 </div>
-
+ 
 <div class="cats"><div class="cs" id="catTabs"></div></div>
 <div id="productArea"></div>
-
+ 
 <div class="cbar">
-  <button class="cbtn ch" id="cartBtn" onclick="openCart()">
-    <span>🛒 ເບິ່ງກະຕ່າສິນຄ້າ</span>
-    <span class="cbadge" id="cartBadge">0 ລາຍການ · ₭0</span>
-  </button>
+  <div class="cbtnrow">
+    <button class="cbtn ch" id="cartBtn" onclick="openCart()">
+      <span>🛒 ເບິ່ງກະຕ່າສິນຄ້າ</span>
+      <span class="cbadge" id="cartBadge">0 ລາຍການ · ₭0</span>
+    </button>
+    <button class="cbuy ch" id="buyBtn" onclick="openCart()">ຊື້ສິນຄ້າ</button>
+  </div>
 </div>
-
+ 
 <div class="ov" id="overlay" onclick="bgClose(event)">
   <div class="sh"><div class="hdl"></div><button onclick="closeCart()" style="position:absolute;top:60px;right:16px;width:44px;height:44px;border-radius:50%;background:#f3f4f6;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6b7280">✕</button><div id="sc"></div></div>
 </div>
-
+ 
 <script>
 // ══════════════════════════════
 // CONFIG — แก้ตรงนี้
 // ══════════════════════════════
 var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQSjQWqLaQUVQ5Pmki7GxDr15_JWiWDwhLuDsc82MBMLO-ZWWVCFKamETnV0mC1nxP/exec";
 var STORE       = "Gold Comeback";
-
+ 
 // ── รูป QR ── ใส่ URL รูปที่อัปโหลดบน backend แล้ว
 var QR_PP_SRC   = "ONE-PLAY.jpeg";   // ← URL รูป QR พร้อมเพย์  เช่น "https://myserver.com/qr-promptpay.png"
 var QR_BK_SRC   = "LDB-TRUST.jpeg";   // ← URL รูป QR ธนาคาร    เช่น "https://myserver.com/qr-bank.png"
-
+ 
 // ── ข้อมูลบัญชี ── แสดงใต้กล่อง QR
 var PP_NUMBER   = "2001217779123";
 var BK_NAME     = "ທະນາຄານພັດທະນາລາວ";
 var BK_ACCNAME  = "KHAMPHOUMEE PHATHEBVONGSA MR";
 var BK_ACCNO    = "0301-xxxx-xxxx-5272";
-
+ 
 // ══════════════════════════════
 // MENU
 // ══════════════════════════════
@@ -175,10 +180,10 @@ var MENU = [
     {id:22, name:"เรดบูล กระป๋อง",      desc:"เครื่องดื่มชูกำลัง คลายง่วง",         price:15, e:"⚡", tag:""},
   ]},
 ];
-
+ 
 // STATE
 var cart = {}, payMethod = "";
-
+ 
 // CATS
 function renderCats() {
   var cats = ["ທັ້ງໝົດ"].concat(MENU.map(function(s){return s.cat;}));
@@ -193,7 +198,7 @@ function filterCat(btn,cat){
     s.style.display=(cat==="ທັ້ງໝົດ"||s.dataset.cat===cat)?"block":"none";
   });
 }
-
+ 
 // PRODUCTS
 function renderProducts(){
   document.getElementById("productArea").innerHTML = MENU.map(function(s){
@@ -216,7 +221,7 @@ function renderProducts(){
       +'</div></div>';
   }).join("");
 }
-
+ 
 // CART
 function chg(id,d,e){
   e.stopPropagation();
@@ -233,6 +238,7 @@ function updateBar(){
   var total=items.reduce(function(s,i){return s+i.price*i.qty;},0);
   var count=items.reduce(function(s,i){return s+i.qty;},0);
   document.getElementById("cartBtn").classList.toggle("ch",count===0);
+  document.getElementById("buyBtn").classList.toggle("ch",count===0);
   document.getElementById("cartBadge").textContent=count+" ລາຍການ · ₭"+total.toLocaleString("la-LA");
 }
 function openCart(){payMethod="";renderSheet();document.getElementById("overlay").classList.add("show");}
@@ -245,7 +251,7 @@ function selPay(m){
   document.getElementById("dc").classList.toggle("show",m==="cash");
   document.getElementById("dq").classList.toggle("show",m==="qr");
 }
-
+ 
 // BUILD ONE QR BOX
 function qrBox(title, src, accHtml){
   var imgPart = src
@@ -257,7 +263,7 @@ function qrBox(title, src, accHtml){
     +'<div class="qacc">'+accHtml+'</div>'
     +'</div>';
 }
-
+ 
 // RENDER SHEET
 function renderSheet(){
   var items=Object.values(cart);
@@ -265,7 +271,7 @@ function renderSheet(){
   var fmt=sub.toLocaleString("la-LA");
   var ppBox=qrBox("📲 QR ວັນເພຍ໌",   QR_PP_SRC, "ວັນເພຍ໌: "+PP_NUMBER);
   var bkBox=qrBox("🏦 QR ບັນຊີທະນາຄານ", QR_BK_SRC, BK_NAME+"<br/>"+BK_ACCNAME+"<br/>ເລກທີ່: "+BK_ACCNO);
-
+ 
   document.getElementById("sc").innerHTML=
     '<div style="font-weight:800;font-size:18px;margin-bottom:4px">🛒 ກະຕ່າຂອງເຈົ້າ</div>'
     +'<div style="font-size:13px;color:var(--sub);margin-bottom:14px">ກວດສອບລາຍການແລ້ວເລືອກວິທີຊຳລະເງິນ</div>'
@@ -303,7 +309,7 @@ function renderSheet(){
     +'</div>'
     +'<button class="cfbtn" id="cfbtn" onclick="doOrder('+sub+')">✅ ຢືນຢັນສັ່ງຊື້</button>';
 }
-
+ 
 // SUBMIT
 async function doOrder(total){
   var name=document.getElementById("n1").value.trim();
@@ -346,7 +352,7 @@ async function doOrder(total){
     +'<button class="cfbtn" onclick="closeCart()" style="background:linear-gradient(135deg,#16a34a,#22c55e);margin-top:20px">✓ ກັບມາຫນ້າເມນູ</button>'
     +'</div>';
 }
-
+ 
 renderCats();
 renderProducts();
 </script>
