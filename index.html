@@ -218,7 +218,7 @@ function renderProducts(){
           +'<div class="pb">'
           +'<div class="pn">'+p.name+'</div>'
           +'<div class="pd">'+p.desc+'</div>'
-          +(p.oldPrice?'<div class="pp"><span style="text-decoration:line-through;color:#aaa;font-size:12px;margin-right:4px">₭'+p.oldPrice+'</span>₭'+p.price+' <span>/ ອັນ</span></div>':'<div class="pp">₭'+p.price+' <span>/ ອັນ</span></div>')
+          +(p.oldPrice?'<div class="pp"><span style="text-decoration:line-through;color:#aaa;font-size:20px;margin-right:4px">₭'+p.oldPrice+'/</span>₭'+p.price+' <span>/ ອັນ</span></div>':'<div class="pp">₭'+p.price+' <span>/ ອັນ</span></div>')
           +'<div class="qc">'
           +'<button class="qb m" onclick="chg('+p.id+',-1,event)">−</button>'
           +'<span class="qn" id="qn'+p.id+'">0</span>'
