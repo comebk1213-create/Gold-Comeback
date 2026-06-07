@@ -224,7 +224,7 @@ function renderProducts(){
           +'<div class="pb">'
           +'<div class="pn">'+p.name+'</div>'
           +'<div class="pd">'+p.desc+'</div>'
-          +'<div class="pp">₭'+p.price+' <span>/ ອັນ</span></div>'
+          +'<div class="pp">₭'+p.price.toLocaleString("la-LA")+' <span>/ ອັນ</span></div>'
           +'<div class="qc">'
           +'<button class="qb m" onclick="chg('+p.id+',-1,event)">−</button>'
           +'<span class="qn" id="qn'+p.id+'">0</span>'
@@ -292,7 +292,7 @@ function renderSheet(){
       return '<div class="oi"><div class="oil">'
         +(i.img?'<img src="'+i.img+'" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">':'<div class="oie">'+i.e+'</div>')
         +'<div><div class="oin">'+i.name+'</div><div class="oip">₭'+i.price+' × '+i.qty+'</div></div>'
-        +'</div><div class="oit">₭'+(i.price*i.qty).toLocaleString("la-LA")+'</div></div>';
+        +'<div class="oip">₭'+i.price.toLocaleString("la-LA")+' × '+i.qty+'</div>'
     }).join("")
     +'<div class="dv"></div>'
     +'<div class="tr big"><span>ຍອດລວມ</span><span>₭'+fmt+'</span></div>'
