@@ -223,7 +223,7 @@ function renderProducts(){
         return '<div class="pc" style="'+(p.sold_out?'opacity:0.5;pointer-events:none':'')+'">'
           +(p.tag?'<div class="bp">'+p.tag+'</div>':'')
           +(p.sold_out?'<div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);border-radius:16px;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none"><span style="color:#fff;font-weight:700;font-size:13px;background:rgba(200,0,0,0.8);padding:5px 14px;border-radius:20px">ສິນຄ້າໝົດ</span></div>':'')
-          +(p.img?'<img src="'+p.img+'" style="width:100%;height:120px;object-fit:cover;border-radius:12px 12px 0 0;">':'<div class="pi">'+p.e+'</div>')
+          +(p.img?'<img src="'+p.img+'" style="width:100%;height:160px;object-fit:cover;border-radius:12px 12px 0 0;">':'<div class="pi">'+p.e+'</div>')
           +'<div class="pb">'
           +'<div class="pn">'+p.name+'</div>'
           +'<div class="pd">'+p.desc+'</div>'
