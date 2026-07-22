@@ -90,9 +90,48 @@ header{background:linear-gradient(135deg,#00000080,#333333);position:sticky;top:
 .cfbtn{width:100%;background:linear-gradient(135deg,#e3bb1c,#e8c742);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'Noto Sans Lao',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:16px;box-shadow:0 4px 20px #222222}
 .cfbtn:disabled{background:#333333;box-shadow:none;cursor:not-allowed}
 .succbox{text-align:center;padding:20px 0}
+
+ /* ══ POPUP ══ */
+.pop-ov{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+.pop-card{background:#1a1a1a;border-radius:22px;max-width:360px;width:100%;padding:26px 22px 22px;text-align:center;position:relative;animation:popIn .3s cubic-bezier(.4,0,.2,1);max-height:90vh;overflow-y:auto}
+.pop-card.open{border:2px solid #4ade80}.pop-card.close{border:2px solid #f87171}.pop-card.dayoff{border:2px solid #888}
+@keyframes popIn{from{transform:scale(0.85);opacity:0}to{transform:scale(1);opacity:1}}
+.pop-x{position:absolute;top:12px;right:14px;background:#2a2a2a;border:none;border-radius:50%;width:30px;height:30px;color:#aaa;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pop-icon{font-size:48px;margin-bottom:8px}.pop-title{font-size:19px;font-weight:800;margin-bottom:6px}
+.open .pop-title{color:#4ade80}.close .pop-title{color:#f87171}.dayoff .pop-title{color:#aaaaaa}
+.pop-status{display:inline-block;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:14px}
+.open .pop-status{background:#14311f;color:#4ade80}.close .pop-status{background:#3b0f0f;color:#f87171}.dayoff .pop-status{background:#2a2a2a;color:#aaaaaa}
+.pop-schedule{background:#222;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;text-align:left}
+.pop-schedule-title{font-weight:800;color:#f5c518;margin-bottom:8px;font-size:13px}
+.sch-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #2a2a2a;align-items:center}
+.sch-row:last-child{border-bottom:none}.sch-day{color:#ccc}.sch-day.today{color:#f5c518;font-weight:800}.sch-time{color:#aaa}.sch-time.open-time{color:#4ade80;font-weight:700}.sch-time.closed{color:#f87171}
+.sch-badge{font-size:10px;background:#f5c51820;color:#f5c518;border-radius:4px;padding:1px 6px;margin-left:4px}
+.pop-announce{background:#1e2a1a;border:1.5px solid #4ade8060;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#ccc;line-height:1.9;text-align:left}
+.pop-announce .atitle{font-weight:800;color:#4ade80;margin-bottom:4px}
+.pop-promo{background:#2a1f0a;border:1.5px solid #f5c51860;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#ccc;line-height:1.9;text-align:left}
+.pop-promo .ptitle{font-weight:800;color:#f5c518;margin-bottom:4px}
+.ptag{display:inline-block;background:#f5c518;color:#000;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700;margin-right:4px}
+.pop-body{font-size:13px;color:#aaa;margin-bottom:14px;line-height:1.8}
+.pop-close{width:100%;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans Lao',sans-serif}
+.open .pop-close{background:linear-gradient(135deg,#4ade80,#16a34a);color:#000}
+.close .pop-close{background:linear-gradient(135deg,#f5c518,#e8a000);color:#000}
+.dayoff .pop-close{background:linear-gradient(135deg,#555,#333);color:#fff}
+.pop-dots{display:flex;justify-content:center;gap:6px;margin-bottom:14px}
+.pop-dot{width:8px;height:8px;border-radius:50%;background:#444;transition:background .2s}
+.pop-dot.active{background:#f5c518}
 </style>
 </head>
 <body>
+
+ <!-- ══ POPUP ══ -->
+<div class="pop-ov" id="popupOv">
+  <div class="pop-card" id="popCard">
+    <button class="pop-x" onclick="nextPopup()">✕</button>
+    <div class="pop-dots" id="popDots"></div>
+    <div id="popContent"></div>
+    <button class="pop-close" id="popBtn" onclick="nextPopup()"></button>
+  </div>
+</div>
  
 <header>
   <div class="hi">
@@ -417,8 +456,117 @@ async function doOrder(total){
     +'</div>';
 }
  
+ // ══ POPUP SEQUENCE ══
+var SCHEDULE = {
+  0:{open:8,close:24,label:"ວັນອາທິດ"},
+  1:{open:8,close:22,label:"ວັນຈັນ"},
+  2:{open:8,close:22,label:"ວັນອັງຄານ"},
+  3:{open:8,close:22,label:"ວັນພຸດ"},
+  4:{open:8,close:22,label:"ວັນພະຫັດ"},
+  5:{open:8,close:24,label:"ວັນສຸກ"},
+  6:{open:8,close:24,label:"ວັນເສົາ"},
+};
+function padH(n){return n<10?"0"+n:""+n;}
+function timeLabel(h){return h===24?"00:00":padH(h)+":00";}
+
+var popupIndex = 0;
+
+// ══ กำหนด Popup แต่ละอัน ══
+function getPopups(){
+  var now=new Date(), day=now.getDay(), hour=now.getHours()+now.getMinutes()/60;
+  var sch=SCHEDULE[day], isDayOff=!sch||sch.open===null;
+  var isOpen=!isDayOff&&hour>=sch.open&&hour<sch.close;
+
+  // สร้างตารางเวลา
+  var rows="";
+  for(var d=0;d<7;d++){
+    var s=SCHEDULE[d], isToday=d===day;
+    var dc=isToday?"sch-day today":"sch-day";
+    var badge=isToday?'<span class="sch-badge">ມື້ນີ້</span>':"";
+    var ts,tc;
+    if(!s||s.open===null){ts="ຫຍຸດ";tc="sch-time closed";}
+    else{ts=timeLabel(s.open)+" – "+timeLabel(s.close);tc=isToday&&isOpen?"sch-time open-time":"sch-time";}
+    rows+='<div class="sch-row"><span class="'+dc+'">'+s.label+badge+'</span><span class="'+tc+'">'+ts+'</span></div>';
+  }
+
+  return [
+    // ── Popup 1: เวลาเปิด-ปิด ──
+    {
+      cardClass: isDayOff?"dayoff":(isOpen?"open":"close"),
+      content:
+        '<div class="pop-icon">'+(isDayOff?"🚫":(isOpen?"🟢":"🔴"))+'</div>'
+        +'<div class="pop-title">'+(isDayOff?"ຮ້ານຫຍຸດວັນນີ້":(isOpen?"ຮ້ານເປີດຢູ່!":"ຮ້ານປິດຢູ່ດຽວນີ້"))+'</div>'
+        +'<div class="pop-status">'+(isDayOff?"● ຫຍຸດໃຫ້ບໍລິການ":(isOpen?"● ກຳລັງໃຫ້ບໍລິການ":"● ນອກເວລາໃຫ້ບໍລິການ"))+'</div>'
+        +'<div class="pop-schedule"><div class="pop-schedule-title">📅 ຕາຕະລາງເວລາ</div>'+rows+'</div>'
+        +'<div class="pop-body">'+(isDayOff?"ມື້ນີ້ຮ້ານຫຍຸດ 🙏<br/>ສາມາດສັ່ງໄວ້ລ່ວງໜ້າໄດ້":(isOpen?"ພ້ອມຮັບອໍເດີ່ແລ້ວ ສັ່ງໄດ້ເລີຍ! 🎉":"ສາມາດສັ່ງໄວ້ລ່ວງໜ້າໄດ້<br/><strong style='color:#fff'>ຮ້ານເປີດ "+timeLabel(sch.open)+" ມື້ອື່ນ</strong> 🌅"))+'</div>',
+      btnText: isDayOff?"ຕໍ່ໄປ →":(isOpen?"ຕໍ່ໄປ →":"ຕໍ່ໄປ →")
+    },
+    // ── Popup 2: ประกาศ ──
+    {
+      cardClass: "open",
+      content:
+        '<div class="pop-icon">📢</div>'
+        +'<div class="pop-title" style="color:#4ade80">ປະກາດຈາກຮ້ານ</div>'
+        +'<div class="pop-announce" style="margin-top:10px">'
+        +'<div class="atitle">📢 ແຈ້ງການ</div>'
+        +'ສິນຄ້າຈະຮອດທ່ານພາຍໃນ <strong>5–15 ນາທີ</strong> ເດີ້ 🙏<br/>'
+        +'ຂໍໂທດຖ້າລ້າຊ້າ ເນື່ອງຈາກລູກຄ້າຫຼາຍ'
+        +'</div>',
+      btnText: "ຕໍ່ໄປ →"
+    },
+    // ── Popup 3: โปรโมชั่น ──
+    {
+      cardClass: "open",
+      content:
+        '<div class="pop-icon">🔥</div>'
+        +'<div class="pop-title" style="color:#f5c518">ໂປຣໂມຊັ່ນ</div>'
+        +'<div class="pop-promo" style="margin-top:10px">'
+        +'<div class="ptitle">🔥 ໂປຣໂມຊັ່ນພິເສດ</div>'
+        +'<span class="ptag">HOT</span> ສັ່ງຄົບ 3 ອັນ ຟຣີ 1 ອັນ!<br/>'
+        +'<span class="ptag">ໃໝ່</span> ເມນູໃໝ່ ໂຄໂຄມິ ລອງໄດ້ເລີຍ 🍜'
+        +'</div>',
+      btnText: "✅ ເຂົ້າສັ່ງເລີຍ!"
+    }
+  ];
+}
+
+function renderPopup(){
+  var popups=getPopups();
+  var p=popups[popupIndex];
+  var card=document.getElementById("popCard");
+  card.className="pop-card "+p.cardClass;
+  document.getElementById("popContent").innerHTML=p.content;
+  document.getElementById("popBtn").textContent=p.btnText;
+  // dots
+  var dots="";
+  for(var i=0;i<popups.length;i++) dots+='<div class="pop-dot'+(i===popupIndex?" active":"")+'"></div>';
+  document.getElementById("popDots").innerHTML=dots;
+}
+
+function nextPopup(){
+  var popups=getPopups();
+  popupIndex++;
+  if(popupIndex>=popups.length){
+    document.getElementById("popupOv").style.display="none";
+  } else {
+    renderPopup();
+  }
+}
+
+function initPopup(){
+  popupIndex=0;
+  renderPopup();
+}
+ 
 renderCats();
 renderProducts();
+
+ // ... JS popup ทั้งหมด ...
+
+renderCats();
+renderProducts();
+initPopup();
+ 
 </script>
 </body>
 </html>
